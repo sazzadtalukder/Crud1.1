@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 
 const Home = (props) => {
@@ -22,7 +23,7 @@ const Home = (props) => {
               <td>{el.firstName}</td>
               <td>{el.lastName}</td>
               <td>{el.email}</td>
-              <td><button className='btn btn-dark'>Edit</button> <button className='btn btn-danger' onClick={()=>props.delete(ind)}>Delete</button></td>
+              <td><button className='btn btn-dark'><Link to={`edit/${ind}`}>Edit</Link></button> <button className='btn btn-danger' onClick={()=>props.delete(ind)}>Delete</button></td>
 
               </tr>
             );

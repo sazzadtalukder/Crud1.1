@@ -1,14 +1,21 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
+import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-
-const Form = (props) => {
+const EditData = (props) => {
     const [firstName,setFirstName] = useState('');
     const [lastName,setLastName] = useState('');
     const [email,setEmail] = useState('');
     const nevigate = useNavigate();
-    const saveData = (e) => {
-        e.preventDefault();
-        props.fetch({firstName,lastName,email});
+    const {id}=useParams();
+    useEffect(()=>{
+        let myUpdateData = props.datas[id];
+        setFirstName(myUpdateData.firstName);
+        setLastName(myUpdateData.lastName);
+        setEmail(myUpdateData.email);
+    },[])
+    const updateData = () => {
+       
+        props.update({firstName,lastName,email},id);
         setFirstName('');
         setLastName('');
         setEmail('');
@@ -17,7 +24,7 @@ const Form = (props) => {
     }
      
     return ( 
-        <form onSubmit={saveData}>
+        <form>
             <div class="form-group">
             <label>First Name</label>
             <input 
@@ -48,9 +55,9 @@ const Form = (props) => {
             placeholder="Enter email"/>
             
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-primary" onClick={updateData}>Update</button>
         </form>
     );
 }
  
-export default Form;
+export default EditData;
